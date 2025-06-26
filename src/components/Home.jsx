@@ -24,10 +24,10 @@ const Home = (props) => {
   useEffect(() => {
     console.log("hello");
 
-    const moviesCollection = collection(db, "movies"); // Collection reference
+    const moviesCollection = collection(db, "movies"); 
 
     onSnapshot(moviesCollection, (snapshot) => {
-      snapshot.docs.forEach((doc) => { // Changed from map to forEach
+      snapshot.docs.forEach((doc) => { 
         console.log(doc.data());
         switch (doc.data().type) {
           case "recommend":
@@ -62,12 +62,27 @@ const Home = (props) => {
 
   return (
     <Container>
-      <ImgSlider />
-      <Viewers />
-      <Recommends />
-      <NewDisney />
-      <Originals />
-      <Trending />
+      <div id="home">
+        <ImgSlider />
+      </div>
+      <div id="viewers">
+        <Viewers />
+      </div>
+      <div id="recommends">
+        <Recommends />
+      </div>
+      <div id="new-disney">
+        <NewDisney />
+      </div>
+      <div id="originals">
+        <Originals />
+      </div>
+      <div id="trending">
+        <Trending />
+      </div>
+      <div id="watchlist" style={{ minHeight: '200px', padding: '40px 0', color: '#fff', textAlign: 'center' }}>
+        <h2>Watchlist (Coming Soon)</h2>
+      </div>
       <Footer />
     </Container>
   );

@@ -10,7 +10,7 @@ import series from "../assets/images/series-icon.svg";
 import { auth, provider } from "../firebase";
 import { signInWithPopup } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   selectUserName,
   selectUserPhoto,
@@ -65,9 +65,17 @@ const Header = () => {
     );
   };
 
+  // Add scrollToSection function
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <Nav>
-      <Logo>
+      <Logo as={Link} to="/home">
           <img src={logo} alt="Disney+" />
       </Logo>
 
@@ -76,38 +84,38 @@ const Header = () => {
       ) : (
         <>
         <NavMenu>
-        <a href="/home">
-          <img src={home} alt="HOME" />
-          <span>HOME</span>
-        </a>
-        <a>
-          <img src={search} alt="SEARCH" />
-          <span>SEARCH</span>
-        </a>
-        <a>
-          <img src={watchlist} alt="WATCHLIST" />
-          <span>WATCHLIST</span>
-        </a>
-        <a>
-          <img src={originals} alt="ORIGINALS" />
-          <span>ORIGINALS</span>
-        </a>
-        <a>
-          <img src={movies} alt="MOVIES" />
-          <span>MOVIES</span>
-        </a>
-        <a>
-          <img src={series} alt="SERIES" />
-          <span>SERIES</span>
-        </a>
-      </NavMenu>
-      <SignOut>
-      <UserImg src={userPhoto} alt={userName} />
-      <DropDown>
-        <span onClick={handleAuth}>Sign out</span>
-      </DropDown>
-      </SignOut>
-      </>
+          <a href="#home" onClick={e => { e.preventDefault(); scrollToSection('home'); }}>
+            <img src={home} alt="HOME" />
+            <span>HOME</span>
+          </a>
+          <a href="#" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 12px' }}>
+            <img src={search} alt="SEARCH" />
+            <span>SEARCH</span>
+          </a>
+          <a href="#watchlist" onClick={e => { e.preventDefault(); scrollToSection('watchlist'); }}>
+            <img src={watchlist} alt="WATCHLIST" />
+            <span>WATCHLIST</span>
+          </a>
+          <a href="#originals" onClick={e => { e.preventDefault(); scrollToSection('originals'); }}>
+            <img src={originals} alt="ORIGINALS" />
+            <span>ORIGINALS</span>
+          </a>
+          <a href="#new-disney" onClick={e => { e.preventDefault(); scrollToSection('new-disney'); }}>
+            <img src={movies} alt="MOVIES" />
+            <span>MOVIES</span>
+          </a>
+          <a href="#trending" onClick={e => { e.preventDefault(); scrollToSection('trending'); }}>
+            <img src={series} alt="SERIES" />
+            <span>SERIES</span>
+          </a>
+        </NavMenu>
+        <SignOut>
+          <UserImg src={userPhoto} alt={userName} />
+          <DropDown>
+            <span onClick={handleAuth}>Sign out</span>
+          </DropDown>
+        </SignOut>
+        </>
       )}
     </Nav>
   );
@@ -202,6 +210,10 @@ const NavMenu = styled.div`
         opacity: 1 !important;
       }
     }
+  }
+
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
 
